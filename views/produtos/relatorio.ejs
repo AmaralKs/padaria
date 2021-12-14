@@ -1,0 +1,32 @@
+<%- include("../partials/header.ejs") %>
+
+<body>
+    <div class="container">
+        <h1>Relatorio de produtos cadastrados:</h1>
+        <hr>
+            <table class="table">
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Descrição</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+
+            <% cadastrados.forEach(cadastrado => { %>
+                <tr>
+                    <td><%= cadastrado.nome %> </td>
+                    <td><%= cadastrado.preco %> </td>
+                    <td><%= cadastrado.descri %> </td>
+                    <td><a class="btn btn-danger" onclick="return confirm('Deseja remover o item?');" href="/produto/remover/<%=cadastrado.id%> "> Remover </a></td>
+                    <td><a class="btn btn-warning"  href="/produto/cadastro/<%=cadastrado.id%> "> Editar </a></td>
+                    
+                </tr>
+            <% })%>
+            </table>
+
+        <script src="/js/bootstrap.bundle.js"></script>
+    </div>
+</body>
+</html>

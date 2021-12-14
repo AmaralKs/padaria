@@ -1,0 +1,31 @@
+<%- include("../partials/header.ejs") %> 
+<body>
+    <div class="container">
+    <h1> <%= title %> </h1>
+    <hr>
+    <form method="POST" action="/usuarios/cadastro">
+      <input type="hidden" name="id" value="<%= usuario.id %>">
+        <div class="mb-3">
+            <label class="form-label">Login:</label>
+            <input required  type="text" class="form-control" name="login">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Senha:</label>
+            <input required  type="password" class="form-control" name="senha">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">E-mail:</label>
+            <input required type="email" class="form-control" name="email">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Telefone:</label>
+            <input required type="text" class="form-control" name="telefone">
+          </div>
+        <button type="submit" class="btn btn-success">SALVAR</button>
+    </form>
+    <label style="color: red;"><%= msg %> </label>
+
+    <script src="/js/bootstrap.bundle.js"></script>
+</div>
+</body>
+</html>

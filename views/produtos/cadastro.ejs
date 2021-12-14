@@ -1,0 +1,25 @@
+<%- include("../partials/header.ejs") %> 
+<body>
+    <div class="container">
+    <h1> <%= title %> </h1>
+    <hr>
+    <form method="POST" action="/produto/cadastro">
+      <input type="hidden" name="id" value="<%= produto.id %>">
+        <div class="mb-3">
+            <label class="form-label">Nome:</label>
+            <input required value= "<%= produto.nome %> " type="text" class="form-control" name="nome">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Preço:</label>
+            <input required value= "<%= produto.preco %>" type="text" class="form-control" name="preco">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Descrição:</label>
+            <input required value= "<%= produto.descri %>" type="text" class="form-control" name="descri">
+          </div>
+        <button type="submit" class="btn btn-success">SALVAR</button>
+    </form>
+    <script src="/js/bootstrap.bundle.js"></script>
+</div>
+</body>
+</html>
