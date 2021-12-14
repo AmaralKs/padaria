@@ -1,10 +1,14 @@
 const express = require("express");//importando o express
 const app = express();
+const session = require("express-session");
 app.use(express.urlencoded({ extended:true }));//QUERO PEGAR INFORMACOES
 app.set('view engine','ejs');//QUERO VER AS COISA BONITO
 app.use(express.static("public"));
-
+app.use(session({
+    secret: "chaveSecreta"
+}));
 //IMPORTANDO ROTAS:
+const auth = require("./middlewares/usuarioAuth");
 const usuarioRoutes = require("./routes/usuarioRoutes");
 const produtoRoutes = require("./routes/produtoRoutes");
 
@@ -15,7 +19,7 @@ app.use(usuarioRoutes);
 app.use(produtoRoutes);
 
 
-app.get("/", function(req, res){
+app.get("/", auth, function(req, res){
     res.render("index", {title:"Inicio"});
 });
 

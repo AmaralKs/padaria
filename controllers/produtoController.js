@@ -3,7 +3,7 @@ module.exports = class produtoController {
 
     static async recuperarProduto(req, res) {
         const cadastrados = await Produto.find();//pegando os dados do BD (o await faz ele esperar a recuperação da lista de clientes para renderizar a tela)
-        res.render("produtos/relatorio", { cadastrados, title: "Relatorio de Produtos" });//renderizando a tela e passando os dados
+        res.render("produtos/relatorio", { cadastrados, title: "Lista de Produtos" });//renderizando a tela e passando os dados
     };
 
     static async cadastrarProdutoGet(req, res) {

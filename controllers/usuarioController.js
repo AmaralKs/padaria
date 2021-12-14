@@ -5,31 +5,38 @@ const bcrypt = require("bcryptjs");
 module.exports = class usuarioController {
 
     static loginUsuarioGet(req, res) {
+        if(req.session.usuarioLogin){ 
+            req.redirect("/") 
+        };
         const status = req.query.s;
         let msg = "";
         if(status == 1){ msg = "login e/ou senha invalido(s)"};
-
         res.render("usuarios/login", { title:"Login", msg });
     };
 
     static async loginUsuarioPost(req, res) {
         const usuario = req.body;
-        
         const resultado = await Usuario.findOne({ login: usuario.login});
-
         if(resultado){
             if(bcrypt.compareSync(usuario.senha, resultado.senha)){
-                res.redirect("/");
-                return;
+                req.session.usuarioLogin = usuario.login;
+                res.redirect("/")
             };
         };
-        res.redirect("/usuarios/login?s=1")
+        res.redirect("/usuarios/login?s=1");
+    };
+
+    static async logout(req, res){
+        req.session.usuarioLogin = undefined;
+        res.redirect("/usuarios/login")
     };
 
     static async cadastrarUsuarioGet(req, res) {
         const status = req.query.s;
         let msg = "";
-        if(status == 2){ msg = "login existente"};
+        if(status == 2){ 
+            msg = "login existente"
+        };
         res.render("usuarios/cadastro", { title: "Cadastrar Usuario", msg, usuario: {} });
 
     };
@@ -40,9 +47,7 @@ module.exports = class usuarioController {
         const resultado = await Usuario.findOne({ login: usuario.login});
 
         if(resultado){
-
             res.redirect("/usuarios/cadastro?s=2")
-            
         }else{
             const novoUsuario = new Usuario({
                 login: usuario.login,
@@ -52,8 +57,5 @@ module.exports = class usuarioController {
             });
             await novoUsuario.save();//vai mandar salvar o usuario e continuar executando o resto do codigo
         };
-
-        res.redirect("/");
     };
-
 };
